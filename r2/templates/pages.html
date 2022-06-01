@@ -1,1 +1,12 @@
 <h1>Supreme Reddit</h1>
+
+<ul>
+    {% for p in all_posts %}
+    <li>{{p.name}}</li>
+    {% endfor %}
+</ul>
+
+<form action="/addPost/" method="post">{% csrf_token %}
+    <input type="text" name="name">
+    <input type="submit" value="Create Post">
+</form>

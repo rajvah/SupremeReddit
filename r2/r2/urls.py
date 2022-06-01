@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from r2app.views import r2appView
+from r2app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('r2app/', r2appView),
+    path('addPost/', addPostView),
 ]
