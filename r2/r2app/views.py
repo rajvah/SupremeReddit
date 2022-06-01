@@ -13,3 +13,8 @@ def addPostView(request):
     new_post = Post(name = x)
     new_post.save()
     return HttpResponseRedirect('/r2app/')
+
+def deletePost(request, i):
+    y = Post.objects.get(id=i)
+    y.delete()
+    return HttpResponseRedirect('/r2app/')

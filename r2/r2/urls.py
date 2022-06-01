@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('r2app/', r2appView),
     path('addPost/', addPostView),
+    path('deletePost/<int:i>/', deletePost),
 ]
