@@ -18,11 +18,11 @@ def r2appView(request):
 
 def readPostView(request):
 
-    direct = True if request.POST['direct'] == 1 else False
-    directText = "DIRECT" if direct else "WRAPPER"
+    wrapper = True if request.POST['wrapper'] == 1 else False
+    wrapperText = "WRAPPER" if wrapper else "DIRECT"
 
     start_time = time.time()
-    print(f'READING 1000 POSTS ({directText}) START: {start_time}')
+    print(f'READING 1000 POSTS ({wrapperText}) START: {start_time}')
     
     posts = Post.objects.len(1000)
     for p in posts:
@@ -38,11 +38,11 @@ def readPostView(request):
 
 def createPostView(request):
 
-    direct = True if request.POST['direct'] == 1 else False
-    directText = "DIRECT" if direct else "WRAPPER"
+    wrapper = True if request.POST['wrapper'] == 1 else False
+    wrapperText = "WRAPPER" if wrapper else "DIRECT"
     
     start_time = time.time()
-    print(f'CREATING 1000 POSTS ({directText}) START: {start_time}')
+    print(f'CREATING 1000 POSTS ({wrapperText}) START: {start_time}')
 
     for x in range(TEST_COUNT):
         new_post = Post(name="Post " + x,
@@ -58,21 +58,21 @@ def createPostView(request):
 
 
 def updatePostView(request, i):
-    direct = True if request.POST['direct'] == 1 else False
+    wrapper = True if request.POST['wrapper'] == 1 else False
     y = Post.objects.get(id=i)
     y.delete()
     return HttpResponseRedirect('/r2app/')
 
 
 def deletePostView(request, i):
-    direct = True if request.POST['direct'] == 1 else False
+    wrapper = True if request.POST['wrapper'] == 1 else False
     y = Post.objects.get(id=i)
     y.delete()
     return HttpResponseRedirect('/r2app/')
 
 
 def searchPostView(request, i):
-    direct = True if request.POST['direct'] == 1 else False
+    wrapper = True if request.POST['wrapper'] == 1 else False
     y = Post.objects.get(id=i)
     y.delete()
     return HttpResponseRedirect('/r2app/')

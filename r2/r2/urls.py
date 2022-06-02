@@ -20,9 +20,9 @@ from r2app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('r2app/', r2appView),
-    path('readPost/<int:direct>/', readPostView),
-    path('createPost/<int:direct>/', createPostView),
-    path('updatePost/<int:direct>/', updatePostView),
-    path('deletePost/<int:direct>/', deletePostView),
-    path('searchPost/<int:direct>/', searchPostView),
+    path('readPost/<int:wrapper>/', readPostView),
+    path('createPost/<int:wrapper>/', createPostView),
+    path('updatePost/<int:wrapper>/', updatePostView),
+    path('deletePost/<int:wrapper>/', deletePostView),
+    path('searchPost/<int:wrapper>/', searchPostView),
 ]
