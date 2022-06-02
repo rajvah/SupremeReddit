@@ -1,63 +1,121 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <script src="jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
     <title>Supreme Reddit DEMO</title>
-  </head>
-  <body>
-    <div class="col-md-12">
-      <h2>Supreme Reddit</h2>
+</head>
 
-      <h5>
-        Below are a list of buttons which will fire database events via a RESTful API layer setup in <pre>views.py</pre>.
-      </h5>
+<style>
+    body {
+        background-color: #4B2E83;
+    }
 
-      <h5>The left column fires events for CRUD actions directly connected to the PostgreSQL and NoSQL databases.</h5>
-      <h5>The right column fires events for CRUD actions connected through the <pre>db_wrapper.py</pre> connector to the PostgreSQL and NoSQL databases.</h5>
+    .main-container {
+        padding: 2% 10%; 
+        background-color: #B7A57A; 
+        margin: auto 20%; 
+        border-radius: 2%; 
+        border: 2px solid #85754D;
+    }
 
-      <div class="col-md-6">
-        <!-- List of GUI Buttons firing Direct Database Connector CRUD Functions -->
-        <button type="button" name="button" class="btn btn-default" id="direct_read_btn">
-          Direct Read
-        </button>
-        <button type="button" name="button" class="btn btn-success" id="direct_create_btn">
-          Direct Create
-        </button>
-        <button type="button" name="button" class="btn btn-warning" id="direct_update_btn">
-          Direct Update
-        </button>
-        <button type="button" name="button" class="btn btn-danger" id="direct_delete_btn">
-          Direct Delete
-        </button>
-        <button type="button" name="button" class="btn btn-info" id="direct_search_btn">
-          Direct Search
-        </button>
-      </div>
+    .btn-container {
+        margin: 5% 25%;
+    }
 
-      <div class="col-md-6">
-        <!-- List of GUI Buttons firing Database Wrapper Connector CRUD Functions -->
-        <button type="button" name="button" class="btn btn-default" id="wrapper_read_btn">
-          Wrapper Read
-        </button>
-        <button type="button" name="button" class="btn btn-success" id="wrapper_read_btn">
-          Wrapper Create
-        </button>
-        <button type="button" name="button" class="btn btn-warning" id="wrapper_read_btn">
-          Wrapper Update
-        </button>
-        <button type="button" name="button" class="btn btn-danger" id="wrapper_read_btn">
-          Wrapper Delete
-        </button>
-        <button type="button" name="button" class="btn btn-info" id="wrapper_search_btn">
-          Wrapper Search
-        </button>
-      </div>
-    </div>
+    .btn {
+        width: 150px !important;
+    }
+</style>
+
+<body>
+    <center class="col-md-12" style="margin: 5% auto;">
+        <div class="main-container container">
+            <h2>Supreme Reddit</h2>
+            <br><br>
+            <h5>
+                Below are a list of buttons which will fire database events via a RESTful API layer setup in
+                <b>views.py</b>
+            </h5>        
+            <hr>
+            <div class="row">
+                <div class="col-sm">
+                    <br><br>
+                    <b>Buttons below fire events for CRUD actions directly connected to the PostgreSQL and NoSQL databases.</b>
+                    <!-- List of GUI Buttons firing Direct Database Connector CRUD Functions -->
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-primary" id="direct_read_btn">
+                            Direct Read
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-success" id="direct_create_btn">
+                            Direct Create
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-warning" id="direct_update_btn">
+                            Direct Update
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-danger" id="direct_delete_btn">
+                            Direct Delete
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-info" id="direct_search_btn">
+                            Direct Search
+                        </button>
+                    </div>
+                </div>
+        
+                <div class="col-sm">
+                    <br><br>
+                    <b>Buttons below fire events for CRUD actions connected through the <b>db_wrapper.py</b> connector to the PostgreSQL and NoSQL databases.
+                    </b>
+                    <!-- List of GUI Buttons firing Database Wrapper Connector CRUD Functions -->
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-primary" id="wrapper_read_btn">
+                            Wrapper Read
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-success" id="wrapper_read_btn">
+                            Wrapper Create
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-warning" id="wrapper_read_btn">
+                            Wrapper Update
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-danger" id="wrapper_read_btn">
+                            Wrapper Delete
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-info" id="wrapper_search_btn">
+                            Wrapper Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
 
     <!-- <ul>
       {% for p in all_posts %}
@@ -75,63 +133,64 @@
       <input type="submit" value="Create Post">
     </form> -->
 
-  </body>
+</body>
+
 </html>
 
 <script type="text/javascript">
-  // List of GUI Buttons firing Direct Database Connector CRUD Functions
-  // via a RESTful API on the back-end/server side - dealing with 1000 records each
-  $('#direct_read_btn').click(function(e) {
-    e.preventDefault();
-    console.log('direct_read_btn');
-  });
+    // List of GUI Buttons firing Direct Database Connector CRUD Functions
+    // via a RESTful API on the back-end/server side - dealing with 1000 records each
+    $('#direct_read_btn').click(function (e) {
+        e.preventDefault();
+        console.log('direct_read_btn');
+    });
 
-  $('#direct_create_btn').click(function(e) {
-    e.preventDefault();
-    console.log('direct_create_btn');
-  });
+    $('#direct_create_btn').click(function (e) {
+        e.preventDefault();
+        console.log('direct_create_btn');
+    });
 
-  $('#direct_update_btn').click(function(e) {
-    e.preventDefault();
-    console.log('direct_update_btn');
-  });
+    $('#direct_update_btn').click(function (e) {
+        e.preventDefault();
+        console.log('direct_update_btn');
+    });
 
-  $('#direct_delete_btn').click(function(e) {
-    e.preventDefault();
-    console.log('direct_delete_btn');
-  });
+    $('#direct_delete_btn').click(function (e) {
+        e.preventDefault();
+        console.log('direct_delete_btn');
+    });
 
-  $('#direct_search_btn').click(function(e) {
-    e.preventDefault();
-    console.log('direct_search_btn');
-  });
+    $('#direct_search_btn').click(function (e) {
+        e.preventDefault();
+        console.log('direct_search_btn');
+    });
 
 
-  // List of GUI Buttons firing Database Wrapper Connector CRUD Functions
-  // via a RESTful API on the back-end/server side - dealing with 1000 records each
-  $('#wrapper_read_btn').click(function(e) {
-    e.preventDefault();
-    console.log('wrapper_read_btn');
-  });
+    // List of GUI Buttons firing Database Wrapper Connector CRUD Functions
+    // via a RESTful API on the back-end/server side - dealing with 1000 records each
+    $('#wrapper_read_btn').click(function (e) {
+        e.preventDefault();
+        console.log('wrapper_read_btn');
+    });
 
-  $('#wrapper_create_btn').click(function(e) {
-    e.preventDefault();
-    console.log('wrapper_create_btn');
-  });
+    $('#wrapper_create_btn').click(function (e) {
+        e.preventDefault();
+        console.log('wrapper_create_btn');
+    });
 
-  $('#wrapper_update_btn').click(function(e) {
-    e.preventDefault();
-    console.log('wrapper_update_btn');
-  });
+    $('#wrapper_update_btn').click(function (e) {
+        e.preventDefault();
+        console.log('wrapper_update_btn');
+    });
 
-  $('#wrapper_delete_btn').click(function(e) {
-    e.preventDefault();
-    console.log('wrapper_delete_btn');
-  });
+    $('#wrapper_delete_btn').click(function (e) {
+        e.preventDefault();
+        console.log('wrapper_delete_btn');
+    });
 
-  $('#wrapper_search_btn').click(function(e) {
-    e.preventDefault();
-    console.log('wrapper_search_btn');
-  });
+    $('#wrapper_search_btn').click(function (e) {
+        e.preventDefault();
+        console.log('wrapper_search_btn');
+    });
 
 </script>
