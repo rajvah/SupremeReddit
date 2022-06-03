@@ -15,7 +15,7 @@ class TestFields:
         return np.random.choice([True, False], size = 1)
 
     def int_field():
-        return random.randint(0, 50000)
+        return random.randint(0, 3000)
 
-    def return_message(type_of, method):
-        return f"{type_of} {method} Complete, please check your server terminal for more information."
+    def return_message(type_of, method, time):
+        return f"{type_of} {method} Complete im {time} ms, please check your server terminal for more information."

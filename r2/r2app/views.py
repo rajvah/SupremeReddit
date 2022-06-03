@@ -19,61 +19,115 @@ def r2appView(request):
 def readThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
-    wrapperText = "WRAPPER" if wrapper else "DIRECT"
+    view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "READ"
 
     start_time = time.time()
     print("==================")
-    print(f'{method} 1000 THINGS ({wrapperText}) START')
+    print(f'{method} 1000 THINGS ({view_text}) START')
 
     things = Thing.objects.all()[:TEST_COUNT]
     for t in things:
         print(f'ID: {t.id} | Created At: {t.created_at}')
 
-    print(f'{method} 1000 THINGS TIME ELAPSED: {(time.time() - start_time) * 1000.000} ms')
+    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
+    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
 
-    return JsonResponse({ "message": TestFields.return_message(wrapperText, method) }, status = 200)
+    return JsonResponse(
+        {"message": TestFields.return_message(view_text, method, time_elapsed)},
+        status=200)
 
 
 def createThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
-    wrapperText = "WRAPPER" if wrapper else "DIRECT"
+    view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "CREATE"
 
     start_time = time.time()
     print("==================")
-    print(f'{method} 1000 THINGS ({wrapperText}) START')
+    print(f'{method} 1000 THINGS ({view_text}) START')
 
     for x in range(TEST_COUNT):
         new_post = Thing(name="Post " + str(x),
-                        description="Description " + str(x),
-                        content=TestFields.char_field(),
-                        upvote_count=TestFields.int_field(),
-                        downvote_count=TestFields.int_field())
+                         description="Description " + str(x),
+                         content=TestFields.char_field(),
+                         upvote_count=TestFields.int_field(),
+                         downvote_count=TestFields.int_field())
         new_post.save()
 
-    print(f'{method} 1000 THINGS TIME ELAPSED: {(time.time() - start_time) * 1000.000} ms')
+    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
+    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
 
-    return JsonResponse({ "message": TestFields.return_message(wrapperText, method) }, status = 200)
+    return JsonResponse(
+        {"message": TestFields.return_message(view_text, method, time_elapsed)},
+        status=200)
 
 
-def updateThingView(request, i):
+def updateThingView(request):
+
     wrapper = True if request.GET['wrapper'] == 1 else False
-    y = Post.objects.get(id=i)
-    y.delete()
-    return HttpResponseRedirect('/r2app/')
+    view_text = "WRAPPER" if wrapper else "DIRECT"
+    method = "UPDATE"
+
+    start_time = time.time()
+    print("==================")
+    print(f'{method} 1000 THINGS ({view_text}) START')
+
+    things = Thing.objects.order_by('?')[:TEST_COUNT]
+    for t in things:
+        t.content = TestFields.char_field()
+        t.upvote_count = TestFields.int_field()
+        t.downvote_count = TestFields.int_field()
+        t.save()
+
+    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
+    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
+
+    return JsonResponse(
+        {"message": TestFields.return_message(view_text, method, time_elapsed)},
+        status=200)
 
 
-def deleteThingView(request, i):
+def deleteThingView(request):
+
     wrapper = True if request.GET['wrapper'] == 1 else False
-    y = Post.objects.get(id=i)
-    y.delete()
-    return HttpResponseRedirect('/r2app/')
+    view_text = "WRAPPER" if wrapper else "DIRECT"
+    method = "DELETE"
+
+    start_time = time.time()
+    print("==================")
+    print(f'{method} 1000 THINGS ({view_text}) START')
+
+    things = Thing.objects.order_by('?')[:TEST_COUNT]
+    for t in things:
+        t.delete()
+
+    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
+    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
+
+    return JsonResponse(
+        {"message": TestFields.return_message(view_text, method, time_elapsed)},
+        status=200)
 
 
-def searchThingView(request, i):
+def searchThingView(request):
+
     wrapper = True if request.GET['wrapper'] == 1 else False
-    y = Post.objects.get(id=i)
-    y.delete()
-    return HttpResponseRedirect('/r2app/')
+    view_text = "WRAPPER" if wrapper else "DIRECT"
+    method = "SEARCH"
+
+    start_time = time.time()
+    print("==================")
+    print(f'{method} 1000 THINGS ({view_text}) START (by upvote_count > 1000)')
+
+    things = Thing.objects.filter(upvote_count__gte=TEST_COUNT)
+    for t in things:
+        print(f'ID: {t.id} | Created At: {t.created_at} | Upvotes: {t.upvote_count}')
+
+    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
+    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms | TOTAL FOUND: {len(things)}')
+
+    return JsonResponse(
+        {"message": TestFields.return_message(view_text, method, time_elapsed)},
+        status=200)

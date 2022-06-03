@@ -83,17 +83,17 @@
                         </button>
                     </div>
                     <div class="row btn-container">
-                        <button type="button" name="button" class="btn btn-success" id="wrapper_read_btn">
+                        <button type="button" name="button" class="btn btn-success" id="wrapper_create_btn">
                             Wrapper Create
                         </button>
                     </div>
                     <div class="row btn-container">
-                        <button type="button" name="button" class="btn btn-warning" id="wrapper_read_btn">
+                        <button type="button" name="button" class="btn btn-warning" id="wrapper_update_btn">
                             Wrapper Update
                         </button>
                     </div>
                     <div class="row btn-container">
-                        <button type="button" name="button" class="btn btn-danger" id="wrapper_read_btn">
+                        <button type="button" name="button" class="btn btn-danger" id="wrapper_delete_btn">
                             Wrapper Delete
                         </button>
                     </div>
@@ -154,16 +154,43 @@
         $('#direct_update_btn').click(function (e) {
             e.preventDefault();
             console.log('direct_update_btn');
+
+            $.ajax({
+                url: "{% url 'update_thing' %}",
+                type: 'GET',
+                data: { wrapper: 0 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#direct_delete_btn').click(function (e) {
             e.preventDefault();
             console.log('direct_delete_btn');
+
+            $.ajax({
+                url: "{% url 'delete_thing' %}",
+                type: 'GET',
+                data: { wrapper: 0 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#direct_search_btn').click(function (e) {
             e.preventDefault();
             console.log('direct_search_btn');
+
+            $.ajax({
+                url: "{% url 'search_thing' %}",
+                type: 'GET',
+                data: { wrapper: 0 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
 
@@ -172,26 +199,71 @@
         $('#wrapper_read_btn').click(function (e) {
             e.preventDefault();
             console.log('wrapper_read_btn');
+
+            $.ajax({
+                url: "{% url 'read_thing' %}",
+                type: 'GET',
+                data: { wrapper: 1 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#wrapper_create_btn').click(function (e) {
             e.preventDefault();
             console.log('wrapper_create_btn');
+
+            $.ajax({
+                url: "{% url 'create_thing' %}",
+                type: 'GET',
+                data: { wrapper: 1 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#wrapper_update_btn').click(function (e) {
             e.preventDefault();
             console.log('wrapper_update_btn');
+
+            $.ajax({
+                url: "{% url 'update_thing' %}",
+                type: 'GET',
+                data: { wrapper: 1 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#wrapper_delete_btn').click(function (e) {
             e.preventDefault();
             console.log('wrapper_delete_btn');
+
+            $.ajax({
+                url: "{% url 'delete_thing' %}",
+                type: 'GET',
+                data: { wrapper: 1 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#wrapper_search_btn').click(function (e) {
             e.preventDefault();
             console.log('wrapper_search_btn');
+
+            $.ajax({
+                url: "{% url 'search_thing' %}",
+                type: 'GET',
+                data: { wrapper: 1 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
     </script>
 </body>
