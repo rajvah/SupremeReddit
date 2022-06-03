@@ -143,17 +143,27 @@
             console.log('direct_read_btn');
 
             $.ajax({
-                url: '/readPost/0',
+                url: "{% url 'read_post' %}",
                 type: 'GET',
+                data: { wrapper: 0 },
                 dataType: 'JSON'
             }).done(function(resp) {
-                alert("Direct Read Complete, please check your server terminal for more information.")
+                alert(resp.message);
             });
         });
 
         $('#direct_create_btn').click(function (e) {
             e.preventDefault();
             console.log('direct_create_btn');
+
+            $.ajax({
+                url: "{% url 'create_post' %}",
+                type: 'GET',
+                data: { wrapper: 0 },
+                dataType: 'JSON'
+            }).done(function(resp) {
+                alert(resp.message);
+            });
         });
 
         $('#direct_update_btn').click(function (e) {

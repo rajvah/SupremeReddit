@@ -16,3 +16,6 @@ class TestFields:
 
     def int_field():
         return random.randint(0, 50000)
+
+    def return_message(type_of, method):
+        return f"{type_of} {method} Complete, please check your server terminal for more information."
