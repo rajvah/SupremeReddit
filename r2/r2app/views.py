@@ -12,7 +12,14 @@ TEST_COUNT = 1000
 def r2appView(request):
     return render(request, 'pages.html')
 
+# BELOW CRUD METHODS
 
+# They show the time elapsed as a measurement to show that DIRECT vs. WRAPPER
+# does not compromise the performance while decoupling the direct database
+# connectors from the original architecture.
+
+# READ Thing objects from the database DIRECTLY or via WRAPPER
+# based on the passed parameter of the GET request.
 def readThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
@@ -36,6 +43,9 @@ def readThingView(request):
         status=200)
 
 
+# CREATE Thing objects from the database DIRECTLY or via WRAPPER
+# based on the passed parameter of the GET request.
+# Fields are determined randomly from samples in test_fields.py
 def createThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
@@ -62,6 +72,9 @@ def createThingView(request):
         status=200)
 
 
+# UPDATE Thing objects from the database DIRECTLY or via WRAPPER
+# based on the passed parameter of the GET request.
+# First a query is made to sample random 1000 Things.
 def updateThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
@@ -88,6 +101,9 @@ def updateThingView(request):
         status=200)
 
 
+# DELETE Thing objects from the database DIRECTLY or via WRAPPER
+# based on the passed parameter of the GET request.
+# First a query is made to sample random 1000 Things.
 def deleteThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
@@ -111,6 +127,9 @@ def deleteThingView(request):
         status=200)
 
 
+# UPDATE Thing objects from the database DIRECTLY or via WRAPPER
+# based on the passed parameter of the GET request.
+# Query is made to read Thing objects with upvote_count >= 1000.
 def searchThingView(request):
 
     wrapper = True if request.GET['wrapper'] == 1 else False
