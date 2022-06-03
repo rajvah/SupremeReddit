@@ -1,7 +1,7 @@
-from email.policy import default
-from pyexpat import model
 from django.db import models
 
+from cassandra.cqlengine import columns
+from cassandra.cqlengine.models import Model
 
 # Create your models here.
 class Thing(models.Model):
@@ -15,3 +15,13 @@ class Thing(models.Model):
     deleted = models.BooleanField(default=False)
     upvote_count = models.IntegerField(default=0)
     downvote_count = models.IntegerField(default=0)
+
+class CassandraThing(Model):
+    id = columns.Integer(primary_key=True)
+    name = columns.Text()
+    description = columns.Text()
+    content = columns.Text()
+    create_at = columns.DateTime()
+    updated_at = columns.DateTime()
+    deleted_at = columns.DateTime
+    deleted = columns.Boolean(default=False)
