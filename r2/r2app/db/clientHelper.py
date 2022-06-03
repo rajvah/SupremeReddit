@@ -10,7 +10,7 @@ def createClientCassandra():
     # client.execute("create keyspace reddit with replication={ 'class': 'SimpleStrategy', 'replication_factor': 2};")
     return client
 
-# TODO (Howard, Chase): is this taken care of by Paul's code?
+# TODO (Howard, Chase): is this taken care of by default, explicit call?
 def createClientSQL():
    pass
 

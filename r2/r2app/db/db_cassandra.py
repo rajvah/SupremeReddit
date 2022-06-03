@@ -1,6 +1,6 @@
 import clientHelper
 import datetime
-from r2.r2app.models import CassandraThing
+from r2app.models.models import CassandraThing
 
 def createThing(thing):
     res = client.execute(

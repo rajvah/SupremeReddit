@@ -17,11 +17,23 @@ class Thing(models.Model):
     downvote_count = models.IntegerField(default=0)
 
 class CassandraThing(Model):
-    id = columns.Integer(primary_key=True)
-    name = columns.Text()
-    description = columns.Text()
-    content = columns.Text()
-    create_at = columns.DateTime()
-    updated_at = columns.DateTime()
-    deleted_at = columns.DateTime
-    deleted = columns.Boolean(default=False)
+   id = columns.Integer(primary_key=True)
+   name = columns.Text()
+   description = columns.Text()
+   content = columns.Text()
+   create_at = columns.DateTime()
+   updated_at = columns.DateTime()
+   deleted_at = columns.DateTime
+   deleted = columns.Boolean(default=False)
+
+   def __init__(self, thing, id_):
+      super().__init__()
+      assert isinstance(thing, Thing)
+      self.id = id_
+      self.name = thing.name
+      self.description = thing.description
+      self.content = thing.content
+      self.create_at = thing.created_at
+      self.updated_at = thing.updated_at
+      self.deleted_at = thing.deleted_at
+      self.deleted = thing.deleted

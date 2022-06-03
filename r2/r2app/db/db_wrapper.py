@@ -2,6 +2,8 @@ import clientHelper
 import db_cassandra, db_sql
 import enum
 
+from r2.r2app.models.models import CassandraThing
+
 class DatabaseType(enum.Enum):
    MEDIA = enum.auto()
    ITEM = enum.auto()
@@ -85,21 +87,19 @@ class DatabaseWrapper:
          return False
 
    def create(self, thing):
-      self.db_media_.create(thing)
-      self.db_items_.create(thing)
+      id = self.db_items_.create(thing)
+      ct = CassandraThing(thing, id)
+      self.db_media_.create(ct)
+
 
    def read(self, id):
       self.db_media_.read(id)
       
    def update(self, thing):
-      self.db_media_.update(thing)
       self.db_items_.update(thing)
+      ct = CassandraThing(thing, thing.id)
+      self.db_media_.update(ct)
 
    def delete(self, id):
       self.db_media_.delete(id)
       self.db_items_.delete(id)
-
-   
-
-      
-
