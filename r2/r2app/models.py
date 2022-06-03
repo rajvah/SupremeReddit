@@ -4,6 +4,7 @@ from django.db import models
 
 # Create your models here.
 class Thing(models.Model):
+    id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=255)
     description = models.CharField
     content = models.CharField
