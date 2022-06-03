@@ -2,7 +2,7 @@ import time
 
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import *
+from .models.models import *
 from .test_fields import TestFields
 # from .db_wrapper import *
 
