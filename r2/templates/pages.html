@@ -107,21 +107,6 @@
         </div>
     </center>
 
-    <!-- <ul>
-      {% for p in all_posts %}
-      <li>
-        {{p.name}} <br>
-        <form action="/deletePost/{{p.id}}/" method="post">{% csrf_token %}
-          <input type="submit" value="Delete">
-        </form>
-      </li>
-      {% endfor %}
-    </ul>
-
-    <form action="/addPost/" method="post">{% csrf_token %}
-      <input type="text" name="name">
-      <input type="submit" value="Create Post">
-    </form> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous">
@@ -143,7 +128,7 @@
             console.log('direct_read_btn');
 
             $.ajax({
-                url: "{% url 'read_post' %}",
+                url: "{% url 'read_thing' %}",
                 type: 'GET',
                 data: { wrapper: 0 },
                 dataType: 'JSON'
@@ -157,7 +142,7 @@
             console.log('direct_create_btn');
 
             $.ajax({
-                url: "{% url 'create_post' %}",
+                url: "{% url 'create_thing' %}",
                 type: 'GET',
                 data: { wrapper: 0 },
                 dataType: 'JSON'

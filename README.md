@@ -1,7 +1,8 @@
 # SupremeReddit
 
 Steps to Get Started:
-Make sure to Download Python3 and that pip install is accessible
+Make sure to Download Python3 and that pip install is accessible then in terminal/command line:
+
 * git clone repository
 * pip install django
 * cd into r2
