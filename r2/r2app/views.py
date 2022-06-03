@@ -10,9 +10,6 @@ TEST_COUNT = 1000
 
 # Create your views here.
 def r2appView(request):
-    # all_things = Thing.objects.all()
-    # return render(request, 'pages.html',
-    # {'all_things': all_things})
     return render(request, 'pages.html')
 
 
@@ -26,6 +23,7 @@ def readThingView(request):
     print("==================")
     print(f'{method} 1000 THINGS ({view_text}) START')
 
+    # replace with db_wrapper if WRAPPER
     things = Thing.objects.all()[:TEST_COUNT]
     for t in things:
         print(f'ID: {t.id} | Created At: {t.created_at}')
@@ -74,6 +72,7 @@ def updateThingView(request):
     print("==================")
     print(f'{method} 1000 THINGS ({view_text}) START')
 
+    # replace with db_wrapper if WRAPPER
     things = Thing.objects.order_by('?')[:TEST_COUNT]
     for t in things:
         t.content = TestFields.char_field()
@@ -99,6 +98,7 @@ def deleteThingView(request):
     print("==================")
     print(f'{method} 1000 THINGS ({view_text}) START')
 
+    # replace with db_wrapper if WRAPPER
     things = Thing.objects.order_by('?')[:TEST_COUNT]
     for t in things:
         t.delete()
@@ -121,6 +121,7 @@ def searchThingView(request):
     print("==================")
     print(f'{method} 1000 THINGS ({view_text}) START (by upvote_count > 1000)')
 
+    # replace with db_wrapper if WRAPPER
     things = Thing.objects.filter(upvote_count__gte=TEST_COUNT)
     for t in things:
         print(f'ID: {t.id} | Created At: {t.created_at} | Upvotes: {t.upvote_count}')
