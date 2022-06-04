@@ -5,6 +5,13 @@
 2. Cassandra: https://pypi.org/project/cassandra-driver/
     1. Install on Linux: https://cassandra.apache.org/doc/latest/cassandra/getting_started/installing.html 
     2. Install on MacOS: https://medium.com/@manishyadavv/how-to-install-cassandra-on-mac-os-d9338fcfcba4
+    3. In a new terminal window, you have to set up a simple `reddit` table for `cassandra`:
+```
+cassandra -f
+cqlsh
+CREATE KEYSPACE reddit WITH REPLICATION = {'class':'SimpleStrategy', 'replication_factor':1};
+exit
+```
 3. Django: https://pypi.org/project/Django/
     1. Install: https://docs.djangoproject.com/en/4.0/topics/install/ 
 
@@ -17,6 +24,7 @@
 cd r2
 pip install django
 pip install cassandra-driver
+cassandra -f (if not running already from dependencies set up)
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py migrate --run-syncdb

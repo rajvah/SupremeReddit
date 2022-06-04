@@ -1,11 +1,12 @@
 import sys
 import os.path
+
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
 
 import enum
-from ..models.models import CassandraThing
-import db.clientHelper as clientHelper 
+from r2app.models.models import CassandraThing
+import db.clientHelper as clientHelper
 import db.db_cassandra as db_cassandra
 import db.db_sql as db_sql
 
@@ -15,6 +16,7 @@ class DatabaseType(enum.Enum):
 
     TYPE_COUNT = enum.auto()
     NONE = enum.auto()
+
 
 class DatabaseEnum(enum.Enum):
     CASSANDRA = enum.auto()
@@ -26,7 +28,9 @@ class DatabaseEnum(enum.Enum):
     DB_COUNT = enum.auto()
     NONE = enum.auto()
 
+
 class DatabaseRunner:
+
     def __init__(self, name):
         self.name_ = name
         self.created_ = False
@@ -65,17 +69,21 @@ class DatabaseRunner:
             return True
         return False
 
+
 class DatabaseWrapper:
     """
    Cassandra for Query and Media (MEDIA)
    SQL for save (ITEM)
    """
+
     def __init__(self) -> None:
+        self.db_items_ = None
+        self.db_media_ = None
         self.setItemDatabase("lite")
         self.setMediaDatabase("cassandra")
 
     def setItemDatabase(self, db_string):
-        if(db_string != self.db_items_.name_):
+        if (self.db_items_ == None or db_string != self.db_items_.name_):
             self.db_items_ = DatabaseRunner(db_string)
             self.db_items_.build()
             return True
@@ -83,7 +91,7 @@ class DatabaseWrapper:
             return False
 
     def setMediaDatabase(self, db_string):
-        if(db_string != self.db_media_.name_):
+        if (self.db_media_ == None or db_string != self.db_media_.name_):
             self.db_media_ = DatabaseRunner(db_string)
             self.db_media_.build()
             return True

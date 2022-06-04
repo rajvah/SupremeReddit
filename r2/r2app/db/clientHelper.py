@@ -26,3 +26,4 @@ def setupTables(client):
         "deleted BOOLEAN," +
         "PRIMARY KEY (id))"
     )
+    

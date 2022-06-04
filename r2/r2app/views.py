@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
-from .models.models import Thing, CassandraThing
-from .db.db_wrapper import DatabaseWrapper
-from .db.clientDemoHelper import DemoHelper
-import db.db_cassandra as db_cass
-import db.db_sql as db_sql
+from r2app.models.models import Thing, CassandraThing
+from r2app.db.db_wrapper import DatabaseWrapper
+from r2app.db.clientDemoHelper import DemoHelper
+import r2app.db.db_cassandra as db_cass
+import r2app.db.db_sql as db_sql
 
 # Constants for demo purposes only
 DEMO_COUNT = 1000
