@@ -67,14 +67,13 @@ class DatabaseRunner:
 class DatabaseWrapper:
    """
    Cassandra for Query and Media (MEDIA)
-   Posgress for save (ITEM)
+   SQL for save (ITEM)
    """
    def __init__(self) -> None:
-      self.db_items_ = DatabaseRunner("lite")
-      self.db_media_ = DatabaseRunner("cassandra")
+      self.setItemDatabase("lite")
+      self.setMediaDatabase("cassandra")
 
-
-   def setQueryDatabase(self, db_string):
+   def setItemDatabase(self, db_string):
       if(db_string != self.db_items_.name_):
          self.db_items_ = DatabaseRunner(db_string)
          self.db_items_.build()
@@ -119,8 +118,7 @@ def main():
 
    # Testing Read and constructor for Cassandra thing
    new_thing = wrap_test.read(id)
-   thing.id = id
-   ct2 = CassandraThing(thing)
+   ct2 = CassandraThing(new_thing)
 
    # Testing Update
    thing.content = "updated content"
@@ -130,8 +128,6 @@ def main():
 
    if(wrap_test.delete(id)):
       print("delete succesful")
-
-   
 
 if(__name__ == "__main__"):
    main()
