@@ -9,7 +9,7 @@ def createThing(thing):
 
 def getThing(id):
     print("db_cassandra:getThing method called", id)
-    return CASS_CLIENT.execute("SELECT * FROM thing WHERE id=?", [int(id)]).one()
+    return CASS_CLIENT.execute(f'SELECT * FROM thing WHERE id={id}').one()
 
 def updateThing(thing):
     print("db_cassandra:getThing method called", thing)
@@ -17,4 +17,4 @@ def updateThing(thing):
 
 def deleteThing(id):
     print("db_cassandra:deleteThing method called", id)
-    return CASS_CLIENT.execute("DELETE from thing where id=?", [int(id)])
+    return CASS_CLIENT.execute(f'DELETE from thing where id={id}')

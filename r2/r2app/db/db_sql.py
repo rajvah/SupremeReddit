@@ -17,7 +17,7 @@ def getThing(id_):
 def updateThing(thing):
     print("db_sql:updateThing method called", thing)
     assert isinstance(thing, Thing)
-    thing.save(force_update=True)
+    thing.save()
     return thing.updated_at
 
 def deleteThing(id_):

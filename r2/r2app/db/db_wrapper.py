@@ -45,7 +45,7 @@ class DatabaseRunner:
             # CRUD Function pointers
             self.create = db_cassandra.createThing
             self.read = db_cassandra.getThing
-            # self.update = db_cassandra.updateThing
+            self.update = db_cassandra.updateThing
             self.delete = db_cassandra.deleteThing
 
         elif self.name_ == "lite":
