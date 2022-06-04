@@ -26,9 +26,12 @@ class CassandraThing(Model):
    deleted_at = columns.DateTime
    deleted = columns.Boolean(default=False)
 
-   def __init__(self, thing, id_):
+   def __init__(self, thing, id_ = 0):
       super().__init__()
-      assert isinstance(thing, Thing)
+      assert isinstance(thing, Thing) and isinstance(id_, int)
+      
+      if(id_ == 0):
+         id_ = thing.id
       self.id = id_
       self.name = thing.name
       self.description = thing.description

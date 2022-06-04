@@ -1,8 +1,12 @@
+import sys
+import os.path
+sys.path.append(
+    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+
+from models.models import CassandraThing, Thing
 import clientHelper
 import db_cassandra, db_sql
 import enum
-
-from r2.r2app.models.models import CassandraThing
 
 class DatabaseType(enum.Enum):
    MEDIA = enum.auto()
@@ -90,16 +94,45 @@ class DatabaseWrapper:
       id = self.db_items_.create(thing)
       ct = CassandraThing(thing, id)
       self.db_media_.create(ct)
-
+      return id
 
    def read(self, id):
-      self.db_media_.read(id)
+      return self.db_media_.read(id)
       
    def update(self, thing):
-      self.db_items_.update(thing)
+      updated_at = self.db_items_.update(thing)
       ct = CassandraThing(thing, thing.id)
       self.db_media_.update(ct)
+      return updated_at
 
    def delete(self, id):
-      self.db_media_.delete(id)
-      self.db_items_.delete(id)
+      retval1 = self.db_media_.delete(id)
+      retval2 = self.db_items_.delete(id)
+      return retval1 and retval2
+
+def main():
+   # Creation
+   thing = Thing()
+   wrap_test = DatabaseWrapper()
+   id = wrap_test.create(thing)
+   ct = CassandraThing(thing, id)
+
+   # Testing Read and constructor for Cassandra thing
+   new_thing = wrap_test.read(id)
+   thing.id = id
+   ct2 = CassandraThing(thing)
+
+   # Testing Update
+   thing.content = "updated content"
+   print('thing updated at: %s', wrap_test.update(thing))
+   updated_thing = wrap_test.read(id)
+   print("New Content: %s", updated_thing.content)
+
+   if(wrap_test.delete(id)):
+      print("delete succesful")
+
+   
+
+if(__name__ == "__main__"):
+   main()
+   print("Complete")

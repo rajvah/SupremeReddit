@@ -1,6 +1,5 @@
-from operator import truediv
 import clientHelper
-from r2app.models.models import Thing
+from models.models import Thing
 
 def createThing(thing):
    assert isinstance(thing, Thing)
