@@ -5,13 +5,11 @@
 2. Cassandra: https://pypi.org/project/cassandra-driver/ 
 3. Django: https://pypi.org/project/Django/
 
-### Once the Dependencies are Setup
+### Once the Dependencies are Set
 1. Open terminal or command line in your machine
 2. Clone the repository from the `main` branch to your local machine: `git clone git@github.com:rajvah/SupremeReddit.git`
-3. Then run the following commands to provision your local environment and get the GUI up and running:
+3. Then run the following commands to install Django, migrate the models for the local databases, sync the databases with the migrations, and get the local server up and running:
 
-Steps to Get Started:
-Make sure to Download Python3 and that pip install is accessible then in terminal/command line:
 ```
 cd r2
 pip install django
