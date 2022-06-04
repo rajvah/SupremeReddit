@@ -2,16 +2,19 @@ import db.clientHelper as clientHelper
 
 CASS_CLIENT = clientHelper.createClientCassandra()
 
+
 def createThing(thing):
-    return CASS_CLIENT.execute(
-        "INSERT INTO thing (id, name, description, content, create_at, updated_at)"
-        + "VALUES (%s,%s,%s,%s,%s,%s)", [
-            thing.id, thing.name, thing.description, thing.content,
-            thing.create_at, thing.updated_at
-        ])
+    print("db_cassandra:createThing method called", thing)
+    return CASS_CLIENT.execute(f'INSERT INTO thing (id) VALUES ({thing.id})')
 
 def getThing(id):
-    return CASS_CLIENT.execute("SELECT * FROM thing WHERE id=?", [id]).one()
+    print("db_cassandra:getThing method called", id)
+    return CASS_CLIENT.execute("SELECT * FROM thing WHERE id=?", [int(id)]).one()
+
+def updateThing(thing):
+    print("db_cassandra:getThing method called", thing)
+    return thing.updated_at
 
 def deleteThing(id):
-    return CASS_CLIENT.execute("DELETE from thing where id=?", [id])
+    print("db_cassandra:deleteThing method called", id)
+    return CASS_CLIENT.execute("DELETE from thing where id=?", [int(id)])

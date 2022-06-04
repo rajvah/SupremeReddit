@@ -10,6 +10,7 @@ import db.clientHelper as clientHelper
 import db.db_cassandra as db_cassandra
 import db.db_sql as db_sql
 
+
 class DatabaseType(enum.Enum):
     MEDIA = enum.auto()
     ITEM = enum.auto()
@@ -99,21 +100,25 @@ class DatabaseWrapper:
             return False
 
     def create(self, thing):
-        id = self.db_items_.create(thing)
-        ct = CassandraThing(thing, id)
+        print("db_wrapper:create method called", thing)
+        thing = self.db_items_.create(thing)
+        ct = CassandraThing(thing, thing.id)
         self.db_media_.create(ct)
         return id
 
     def read(self, id):
+        print("db_wrapper:read method called", id)
         return self.db_media_.read(id)
 
     def update(self, thing):
+        print("db_wrapper:update method called", thing)
         updated_at = self.db_items_.update(thing)
         ct = CassandraThing(thing, thing.id)
         self.db_media_.update(ct)
         return updated_at
 
     def delete(self, id):
+        print("db_wrapper:delete method called", id)
         retval1 = self.db_media_.delete(id)
         retval2 = self.db_items_.delete(id)
         return retval1 and retval2

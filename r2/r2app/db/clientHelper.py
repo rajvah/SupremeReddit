@@ -16,11 +16,11 @@ def setupTables(client):
     client.execute("use reddit")
     client.execute(
         "create table if not exists thing" +
-        "( id int," +
+        "(id int," +
         "name text," +
         "description text," +
         "content text," +
-        "create_at TIMESTAMP," +
+        "created_at TIMESTAMP," +
         "updated_at TIMESTAMP," +
         "deleted_at TIMESTAMP," +
         "deleted BOOLEAN," +

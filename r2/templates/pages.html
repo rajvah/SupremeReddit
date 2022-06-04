@@ -43,16 +43,16 @@
             <div class="row">
                 <div class="col-sm">
                     <br><br>
-                    <b>Buttons below fire events for CRUD actions directly connected to the PostgreSQL and NoSQL databases.</b>
+                    <p>Buttons below fire events for CRUD actions directly connected to the <b>db_sql.py</b> and <b>db_cassandra.py</b> database connectors.</p>
                     <!-- List of GUI Buttons firing Direct Database Connector CRUD Functions -->
-                    <div class="row btn-container">
-                        <button type="button" name="button" class="btn btn-primary" id="direct_read_btn">
-                            Direct Read
-                        </button>
-                    </div>
                     <div class="row btn-container">
                         <button type="button" name="button" class="btn btn-success" id="direct_create_btn">
                             Direct Create
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-primary" id="direct_read_btn">
+                            Direct Read
                         </button>
                     </div>
                     <div class="row btn-container">
@@ -69,17 +69,17 @@
         
                 <div class="col-sm">
                     <br><br>
-                    <b>Buttons below fire events for CRUD actions connected through the <b>db_wrapper.py</b> connector to the PostgreSQL and NoSQL databases.
-                    </b>
+                    <p>Buttons below fire events for CRUD actions connected through the <b>db_wrapper.py</b> connector to the database connectors.
+                    </p>
                     <!-- List of GUI Buttons firing Database Wrapper Connector CRUD Functions -->
-                    <div class="row btn-container">
-                        <button type="button" name="button" class="btn btn-primary" id="wrapper_read_btn">
-                            Wrapper Read
-                        </button>
-                    </div>
                     <div class="row btn-container">
                         <button type="button" name="button" class="btn btn-success" id="wrapper_create_btn">
                             Wrapper Create
+                        </button>
+                    </div>
+                    <div class="row btn-container">
+                        <button type="button" name="button" class="btn btn-primary" id="wrapper_read_btn">
+                            Wrapper Read
                         </button>
                     </div>
                     <div class="row btn-container">
@@ -113,12 +113,12 @@
     <script type="text/javascript">
         // List of GUI Buttons firing Direct Database Connector CRUD Functions
         // via a RESTful API on the back-end/server side - dealing with 1000 records each
-        $('#direct_read_btn').click(function (e) {
+        $('#direct_create_btn').click(function (e) {
             e.preventDefault();
-            console.log('direct_read_btn');
+            console.log('direct_create_btn');
 
             $.ajax({
-                url: "{% url 'read_thing' %}",
+                url: "{% url 'create_thing' %}",
                 type: 'GET',
                 data: { wrapper: 0 },
                 dataType: 'JSON'
@@ -126,13 +126,13 @@
                 alert(resp.message);
             });
         });
-
-        $('#direct_create_btn').click(function (e) {
+        
+        $('#direct_read_btn').click(function (e) {
             e.preventDefault();
-            console.log('direct_create_btn');
+            console.log('direct_read_btn');
 
             $.ajax({
-                url: "{% url 'create_thing' %}",
+                url: "{% url 'read_thing' %}",
                 type: 'GET',
                 data: { wrapper: 0 },
                 dataType: 'JSON'
@@ -171,12 +171,12 @@
 
         // List of GUI Buttons firing Database Wrapper Connector CRUD Functions
         // via a RESTful API on the back-end/server side - dealing with 1000 records each
-        $('#wrapper_read_btn').click(function (e) {
+        $('#wrapper_create_btn').click(function (e) {
             e.preventDefault();
-            console.log('wrapper_read_btn');
+            console.log('wrapper_create_btn');
 
             $.ajax({
-                url: "{% url 'read_thing' %}",
+                url: "{% url 'create_thing' %}",
                 type: 'GET',
                 data: { wrapper: 1 },
                 dataType: 'JSON'
@@ -185,12 +185,12 @@
             });
         });
 
-        $('#wrapper_create_btn').click(function (e) {
+        $('#wrapper_read_btn').click(function (e) {
             e.preventDefault();
-            console.log('wrapper_create_btn');
+            console.log('wrapper_read_btn');
 
             $.ajax({
-                url: "{% url 'create_thing' %}",
+                url: "{% url 'read_thing' %}",
                 type: 'GET',
                 data: { wrapper: 1 },
                 dataType: 'JSON'

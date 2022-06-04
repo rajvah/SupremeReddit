@@ -1,4 +1,5 @@
 import time
+from datetime import date
 import numpy as np
 import random
 
@@ -10,7 +11,7 @@ MID_POINT = len(SAMPLE) / 2
 
 class DemoHelper:
 
-    def __init__(self) -> None:
+    def __init__(self):
         self.start_timer = None
 
     def start_time(self, method, text):
@@ -23,20 +24,20 @@ class DemoHelper:
         print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
         return self.return_message(text, method, time_elapsed)
 
-    def char_field(self):
+    def char_field():
         return SAMPLE[random.randint(0, MID_POINT):random.
                         randint(MID_POINT, len(SAMPLE))]
 
-    def bool_field(self):
+    def bool_field():
         return np.random.choice([True, False], size = 1)
 
-    def int_field(self):
+    def int_field():
         return random.randint(0, 3000)
 
     def return_message(self, text, method, time):
         return f"{text} {method} Complete im {time} ms, please check your server terminal for more information."
 
-    def generate_thing(self):
+    def generate_thing():
         return Thing(name="Post Name",
                     description="Post Description",
                     content=DemoHelper.char_field(),

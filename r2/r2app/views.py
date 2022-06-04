@@ -24,35 +24,12 @@ def r2appView(request):
 # does not compromise the performance while decoupling the direct database
 # connectors from the original architecture.
 
-# READ Thing objects from the database DIRECTLY or via WRAPPER
-# based on the passed parameter of the GET request.
-def readThingView(request):
-
-    wrapper = True if request.GET['wrapper'] == 1 else False
-    view_text = "WRAPPER" if wrapper else "DIRECT"
-    method = "READ"
-
-    DEMO.start_time(method, view_text)
-    # Wrapper vs. Direct storage DB call
-    if wrapper:
-        for x in range(DEMO_COUNT):
-            t = WRAPPER.read(1)
-            print(f'{method} {x} THINGS')
-    else:
-        for x in range(DEMO_COUNT):
-            t = DIRECT_MY_SQL.getThing(1)
-            ct = DIRECT_NO_SQL.getThing(1)
-            print(f'{method} {x} THINGS')
-
-    return JsonResponse({"message": DEMO.end(method, view_text)})
-
-
 # CREATE Thing objects from the database DIRECTLY or via WRAPPER
 # based on the passed parameter of the GET request.
 # Fields are determined randomly from samples in test_fields.py
 def createThingView(request):
 
-    wrapper = True if request.GET['wrapper'] == 1 else False
+    wrapper = True if request.GET['wrapper'] == '1' else False
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "CREATE"
 
@@ -61,19 +38,37 @@ def createThingView(request):
     # Wrapper vs. Direct storage DB call
     if wrapper:
         for x in range(DEMO_COUNT):
-            t_id = WRAPPER.create(thing)
-            print(
-                f'{method} {x} THINGS | ID: {t_id}'
-            )
+            t_id = WRAPPER.create(thing=thing)
+            print(f'{method} {x} THINGS | ID: {t_id}')
     else:
         for x in range(DEMO_COUNT):
-            t_id = DIRECT_MY_SQL.createThing(thing)
-            ct_id = DIRECT_NO_SQL.createThing(thing)
-            print(
-                f'{method} {x} THINGS | ID: {t_id}'
-            )
+            thing = DIRECT_MY_SQL.createThing(thing)
+            ct_resp = DIRECT_NO_SQL.createThing(thing)
+            print(f'{method} {x} THINGS | ID: {thing.id}')
 
-    return JsonResponse({ "message": DEMO.end(method, view_text) })
+    return JsonResponse({"message": DEMO.end_time(method, view_text)})
+
+# READ Thing objects from the database DIRECTLY or via WRAPPER
+# based on the passed parameter of the GET request.
+def readThingView(request):
+
+    wrapper = True if request.GET['wrapper'] == '1' else False
+    view_text = "WRAPPER" if wrapper else "DIRECT"
+    method = "READ"
+
+    DEMO.start_time(method, view_text)
+    # Wrapper vs. Direct storage DB call
+    if wrapper:
+        for x in range(DEMO_COUNT):
+            t = WRAPPER.read(id=1)
+            print(f'{method} {x} THINGS')
+    else:
+        for x in range(DEMO_COUNT):
+            t = DIRECT_MY_SQL.getThing(1)
+            ct = DIRECT_NO_SQL.getThing(1)
+            print(f'{method} {x} THINGS')
+
+    return JsonResponse({"message": DEMO.end_time(method, view_text)})
 
 
 # UPDATE Thing objects from the database DIRECTLY or via WRAPPER
@@ -81,7 +76,7 @@ def createThingView(request):
 # First a query is made to sample random 1000 Things.
 def updateThingView(request):
 
-    wrapper = True if request.GET['wrapper'] == 1 else False
+    wrapper = True if request.GET['wrapper'] == '1' else False
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "UPDATE"
 
@@ -97,7 +92,7 @@ def updateThingView(request):
             t_id = DIRECT_MY_SQL.updateThing(thing)
             print(f'{method} {x} THINGS | ID: {t_id}')
 
-    return JsonResponse({ "message": DEMO.end(method, view_text) })
+    return JsonResponse({ "message": DEMO.end_time(method, view_text) })
 
 
 # DELETE Thing objects from the database DIRECTLY or via WRAPPER
@@ -105,7 +100,7 @@ def updateThingView(request):
 # First a query is made to sample random 1000 Things.
 def deleteThingView(request):
 
-    wrapper = True if request.GET['wrapper'] == 1 else False
+    wrapper = True if request.GET['wrapper'] == '1' else False
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "DELETE"
 
@@ -113,7 +108,7 @@ def deleteThingView(request):
     # Wrapper vs. Direct storage DB call
     if wrapper:
         for x in range(DEMO_COUNT):
-            res = WRAPPER.delete(1)
+            res = WRAPPER.delete(id=1)
             print(f'{method} {x} THINGS | DELETED?: {res}')
     else:
         for x in range(DEMO_COUNT):
@@ -121,4 +116,4 @@ def deleteThingView(request):
             cass_res = DIRECT_NO_SQL.deleteThing(1)
             print(f'{method} {x} THINGS | DELETED?: {sql_res and cass_res}')
 
-    return JsonResponse({ "message": DEMO.end(method, view_text) })
+    return JsonResponse({ "message": DEMO.end_time(method, view_text) })

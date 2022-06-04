@@ -21,7 +21,7 @@ class CassandraThing(Model):
    name = columns.Text()
    description = columns.Text()
    content = columns.Text()
-   create_at = columns.DateTime()
+   created_at = columns.DateTime()
    updated_at = columns.DateTime()
    deleted_at = columns.DateTime
    deleted = columns.Boolean(default=False)
@@ -36,7 +36,7 @@ class CassandraThing(Model):
       self.name = thing.name
       self.description = thing.description
       self.content = thing.content
-      self.create_at = thing.created_at
+      self.created_at = thing.created_at
       self.updated_at = thing.updated_at
       self.deleted_at = thing.deleted_at
       self.deleted = thing.deleted
