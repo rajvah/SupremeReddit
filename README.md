@@ -1,4 +1,4 @@
-# SupremeReddit User Guide
+# Team SUPREME Reddit Wrapper DEMO User Guide
 
 ### Initial Dependencies Download
 1. Python 3 (we used 3.9 for our project): https://www.python.org/downloads/
