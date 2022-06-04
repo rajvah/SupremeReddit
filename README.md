@@ -1,7 +1,7 @@
 # Team SUPREME Reddit Wrapper DEMO User Guide
 
 ### Initial Dependencies Download
-1. Python 3 (we used 3.9 for our project): https://www.python.org/downloads/
+1. Python 3 (we used 3.8 for our project): https://www.python.org/downloads/
 2. Cassandra: https://pypi.org/project/cassandra-driver/ 
 3. Django: https://pypi.org/project/Django/
 
@@ -13,6 +13,7 @@
 ```
 cd r2
 pip install django
+pip install cassandra-driver
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py migrate --run-syncdb

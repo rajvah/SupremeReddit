@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
-from r2.r2app.models.models import Thing, CassandraThing
-from r2.r2app.db.db_wrapper import DatabaseWrapper
-from r2.r2app.db.clientDemoHelper import DemoHelper
+from .models.models import Thing, CassandraThing
+from .db.db_wrapper import DatabaseWrapper
+from .db.clientDemoHelper import DemoHelper
 import db.db_cassandra as db_cass
 import db.db_sql as db_sql
 

@@ -1,5 +1,5 @@
 import clientHelper
-from models.models import Thing
+from ..models.models import Thing
 
 def createThing(thing):
     assert isinstance(thing, Thing)
@@ -25,17 +25,3 @@ def deleteThing(id):
         return True
     else:
         return False
-
-#Test
-# def main():
-#    thing = Thing.create(
-#       name = "sample sql",
-#       description = "description example",
-#       content = "this is what's contained in a Thing"
-#    )
-
-#    createThing(thing)
-
-# if __name__ == "__main__":
-#     client = clientHelper.createClientSQL()
-#     main()

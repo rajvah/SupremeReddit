@@ -6,11 +6,9 @@ def createClientCassandra():
     cluster = Cluster()
     setup(['127.0.0.1'], 'reddit', retry_connect=True)
     client = cluster.connect()
-    setupTables(client)
-    # client.execute("create keyspace reddit with replication={ 'class': 'SimpleStrategy', 'replication_factor': 2};")
+    setupTables(client)    
     return client
 
-# TODO (Howard, Chase): is this taken care of by default, explicit call?
 def createClientSQL():
    pass
 

@@ -1,6 +1,4 @@
-import clientHelper
-import datetime
-from models.models import CassandraThing
+import db.clientHelper as clientHelper
 
 CASS_CLIENT = clientHelper.createClientCassandra()
 
@@ -17,20 +15,3 @@ def getThing(id):
 
 def deleteThing(id):
     return CASS_CLIENT.execute("DELETE from thing where id=?", [id])
-
-
-#Test
-# def main():
-#     thing = CassandraThing.Thing.create(
-#         id=1,
-#         name="Harshit",
-#         description="sample",
-#         content="test",
-#         create_at=datetime.date.today(),
-#         updated_at=datetime.date.today(),
-#     )
-#     createThing(thing)
-
-# if __name__ == "__main__":
-#     client = clientHelper.createClientCassandra()
-#     main()
