@@ -23,6 +23,5 @@ urlpatterns = [
     path('readThing/', readThingView, name = "read_thing"),
     path('createThing/', createThingView, name = "create_thing"),
     path('updateThing/', updateThingView, name = "update_thing"),
-    path('deleteThing/', deleteThingView, name = "delete_thing"),
-    path('searchThing/', searchThingView, name = "search_thing"),
+    path('deleteThing/', deleteThingView, name = "delete_thing")
 ]

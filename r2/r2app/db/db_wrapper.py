@@ -109,26 +109,26 @@ class DatabaseWrapper:
       retval2 = self.db_items_.delete(id)
       return retval1 and retval2
 
-def main():
-   # Creation
-   thing = Thing()
-   wrap_test = DatabaseWrapper()
-   id = wrap_test.create(thing)
-   ct = CassandraThing(thing, id)
+# def main():
+#    # Creation
+#    thing = Thing()
+#    wrap_test = DatabaseWrapper()
+#    id = wrap_test.create(thing)
+#    ct = CassandraThing(thing, id)
 
-   # Testing Read and constructor for Cassandra thing
-   new_thing = wrap_test.read(id)
-   ct2 = CassandraThing(new_thing)
+#    # Testing Read and constructor for Cassandra thing
+#    new_thing = wrap_test.read(id)
+#    ct2 = CassandraThing(new_thing)
 
-   # Testing Update
-   thing.content = "updated content"
-   print('thing updated at: %s', wrap_test.update(thing))
-   updated_thing = wrap_test.read(id)
-   print("New Content: %s", updated_thing.content)
+#    # Testing Update
+#    thing.content = "updated content"
+#    print('thing updated at: %s', wrap_test.update(thing))
+#    updated_thing = wrap_test.read(id)
+#    print("New Content: %s", updated_thing.content)
 
-   if(wrap_test.delete(id)):
-      print("delete succesful")
+#    if(wrap_test.delete(id)):
+#       print("delete succesful")
 
-if(__name__ == "__main__"):
-   main()
-   print("Complete")
+# if(__name__ == "__main__"):
+#    main()
+#    print("Complete")

@@ -1,12 +1,18 @@
-import time
-
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models.models import *
-from .test_fields import TestFields
-# from .db_wrapper import *
 
-TEST_COUNT = 1000
+from r2.r2app.models.models import Thing, CassandraThing
+from r2.r2app.db.db_wrapper import DatabaseWrapper
+from r2.r2app.db.clientDemoHelper import DemoHelper
+import db.db_cassandra as db_cass
+import db.db_sql as db_sql
+
+# Constants for demo purposes only
+DEMO_COUNT = 1000
+DEMO = DemoHelper()
+WRAPPER = DatabaseWrapper()
+DIRECT_MY_SQL = db_sql
+DIRECT_NO_SQL = db_cass
 
 # Create your views here.
 def r2appView(request):
@@ -26,21 +32,19 @@ def readThingView(request):
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "READ"
 
-    start_time = time.time()
-    print("==================")
-    print(f'{method} 1000 THINGS ({view_text}) START')
+    DEMO.start_time(method, view_text)
+    # Wrapper vs. Direct storage DB call
+    if wrapper:
+        for x in range(DEMO_COUNT):
+            t = WRAPPER.read(1)
+            print(f'{method} {x} THINGS')
+    else:
+        for x in range(DEMO_COUNT):
+            t = DIRECT_MY_SQL.getThing(1)
+            ct = DIRECT_NO_SQL.getThing(1)
+            print(f'{method} {x} THINGS')
 
-    # replace with db_wrapper if WRAPPER
-    things = Thing.objects.all()[:TEST_COUNT]
-    for t in things:
-        print(f'ID: {t.id} | Created At: {t.created_at}')
-
-    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
-    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
-
-    return JsonResponse(
-        {"message": TestFields.return_message(view_text, method, time_elapsed)},
-        status=200)
+    return JsonResponse({"message": DEMO.end(method, view_text)})
 
 
 # CREATE Thing objects from the database DIRECTLY or via WRAPPER
@@ -52,24 +56,24 @@ def createThingView(request):
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "CREATE"
 
-    start_time = time.time()
-    print("==================")
-    print(f'{method} 1000 THINGS ({view_text}) START')
+    DEMO.start_time(method, view_text)
+    thing = DemoHelper.generate_thing()
+    # Wrapper vs. Direct storage DB call
+    if wrapper:
+        for x in range(DEMO_COUNT):
+            t_id = WRAPPER.create(thing)
+            print(
+                f'{method} {x} THINGS | ID: {t_id}'
+            )
+    else:
+        for x in range(DEMO_COUNT):
+            t_id = DIRECT_MY_SQL.createThing(thing)
+            ct_id = DIRECT_NO_SQL.createThing(thing)
+            print(
+                f'{method} {x} THINGS | ID: {t_id}'
+            )
 
-    for x in range(TEST_COUNT):
-        new_post = Thing(name="Post " + str(x),
-                         description="Description " + str(x),
-                         content=TestFields.char_field(),
-                         upvote_count=TestFields.int_field(),
-                         downvote_count=TestFields.int_field())
-        new_post.save()
-
-    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
-    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
-
-    return JsonResponse(
-        {"message": TestFields.return_message(view_text, method, time_elapsed)},
-        status=200)
+    return JsonResponse({ "message": DEMO.end(method, view_text) })
 
 
 # UPDATE Thing objects from the database DIRECTLY or via WRAPPER
@@ -81,24 +85,19 @@ def updateThingView(request):
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "UPDATE"
 
-    start_time = time.time()
-    print("==================")
-    print(f'{method} 1000 THINGS ({view_text}) START')
+    DEMO.start_time(method, view_text)
+    thing = DemoHelper.generate_thing()
+    # Wrapper vs. Direct storage DB call
+    if wrapper:
+        for x in range(DEMO_COUNT):
+            t_id = WRAPPER.update(thing)
+            print(f'{method} {x} THINGS | ID: {t_id}')
+    else:
+        for x in range(DEMO_COUNT):
+            t_id = DIRECT_MY_SQL.updateThing(thing)
+            print(f'{method} {x} THINGS | ID: {t_id}')
 
-    # replace with db_wrapper if WRAPPER
-    things = Thing.objects.order_by('?')[:TEST_COUNT]
-    for t in things:
-        t.content = TestFields.char_field()
-        t.upvote_count = TestFields.int_field()
-        t.downvote_count = TestFields.int_field()
-        t.save()
-
-    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
-    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
-
-    return JsonResponse(
-        {"message": TestFields.return_message(view_text, method, time_elapsed)},
-        status=200)
+    return JsonResponse({ "message": DEMO.end(method, view_text) })
 
 
 # DELETE Thing objects from the database DIRECTLY or via WRAPPER
@@ -110,44 +109,16 @@ def deleteThingView(request):
     view_text = "WRAPPER" if wrapper else "DIRECT"
     method = "DELETE"
 
-    start_time = time.time()
-    print("==================")
-    print(f'{method} 1000 THINGS ({view_text}) START')
+    DEMO.start_time(method, view_text)
+    # Wrapper vs. Direct storage DB call
+    if wrapper:
+        for x in range(DEMO_COUNT):
+            res = WRAPPER.delete(1)
+            print(f'{method} {x} THINGS | DELETED?: {res}')
+    else:
+        for x in range(DEMO_COUNT):
+            sql_res = DIRECT_MY_SQL.deleteThing(1)
+            cass_res = DIRECT_NO_SQL.deleteThing(1)
+            print(f'{method} {x} THINGS | DELETED?: {sql_res and cass_res}')
 
-    # replace with db_wrapper if WRAPPER
-    things = Thing.objects.order_by('?')[:TEST_COUNT]
-    for t in things:
-        t.delete()
-
-    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
-    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms')
-
-    return JsonResponse(
-        {"message": TestFields.return_message(view_text, method, time_elapsed)},
-        status=200)
-
-
-# UPDATE Thing objects from the database DIRECTLY or via WRAPPER
-# based on the passed parameter of the GET request.
-# Query is made to read Thing objects with upvote_count >= 1000.
-def searchThingView(request):
-
-    wrapper = True if request.GET['wrapper'] == 1 else False
-    view_text = "WRAPPER" if wrapper else "DIRECT"
-    method = "SEARCH"
-
-    start_time = time.time()
-    print("==================")
-    print(f'{method} 1000 THINGS ({view_text}) START (by upvote_count > 1000)')
-
-    # replace with db_wrapper if WRAPPER
-    things = Thing.objects.filter(upvote_count__gte=TEST_COUNT)
-    for t in things:
-        print(f'ID: {t.id} | Created At: {t.created_at} | Upvotes: {t.upvote_count}')
-
-    time_elapsed = '%.2f' % ((time.time() - start_time) * 1000.00)
-    print(f'{method} 1000 THINGS TIME ELAPSED: {time_elapsed} ms | TOTAL FOUND: {len(things)}')
-
-    return JsonResponse(
-        {"message": TestFields.return_message(view_text, method, time_elapsed)},
-        status=200)
+    return JsonResponse({ "message": DEMO.end(method, view_text) })
