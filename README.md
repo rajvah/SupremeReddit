@@ -2,8 +2,11 @@
 
 ### Initial Dependencies Download
 1. Python 3 (we used 3.8 for our project): https://www.python.org/downloads/
-2. Cassandra: https://pypi.org/project/cassandra-driver/ 
+2. Cassandra: https://pypi.org/project/cassandra-driver/
+    1. Install on Linux: https://cassandra.apache.org/doc/latest/cassandra/getting_started/installing.html 
+    2. Install on MacOS: https://medium.com/@manishyadavv/how-to-install-cassandra-on-mac-os-d9338fcfcba4
 3. Django: https://pypi.org/project/Django/
+    1. Install: https://docs.djangoproject.com/en/4.0/topics/install/ 
 
 ### Once the Dependencies are Set
 1. Open terminal or command line in your machine
